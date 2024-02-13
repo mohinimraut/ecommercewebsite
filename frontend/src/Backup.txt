@@ -1,0 +1,263 @@
+PrivatRoute react-router-dom 6
+=================
+import React, { useEffect } from 'react';
+import {
+    BrowserRouter as Router,
+    Routes,
+    Route,
+    useNavigate
+  } from "react-router-dom";
+import Home from '../../../src/containers/Home/index'
+const PrivateRoute =(props)=>{
+    const {Component}=props;
+    const navigate=useNavigate();
+    const token=window.localStorage.getItem('token');
+        if(token){
+           return navigate('/')
+        }
+        else{
+            return navigate('/signin')   
+        }
+
+    return(
+        <Component/>
+    )
+}
+         
+export default PrivateRoute;
+
+=======================
+
+App.js
+react-router-6
+-------------------
+
+import './App.css';
+
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+} from "react-router-dom";
+import Layout from './components/Layout';
+import Home from './containers/Home';
+import Signin from './containers/Signin';
+import Signup from './containers/Signup';
+import Header from './components/Header';
+import PrivateRoute from './components/HOC/PrivateRoute';
+function App() {
+  return (
+    <div className="App">
+   <>
+      <Router>
+        {/* <Header /> */}
+
+        <Routes>
+         <Route path="/" exact element={<PrivateRoute Component={Home}/>}/>
+      
+          <Route path="/signin" element={<Signin/>}>
+          </Route>
+          <Route path="/signup" element={<Signup/>}>
+          </Route>
+
+          
+          
+          {/* <Route path="/" element={<h1>Welcome</h1>}></Route> */}
+
+          {/* <Route path="/" element={<Home />}></Route>
+          <Route path='*' element={<h1>Page not Found</h1>}></Route> */}
+
+        </Routes>
+      </Router>
+
+    </>
+    </div>
+  );
+}
+
+export default App;
+============================
+
+
+          <Input
+            label="Name"
+            value={name}
+            placeholder={`Product Name`}
+            onChange={(e) => setName(e.target.value)}
+          />
+          <Input
+            label="Quantity"
+            value={quantity}
+            placeholder={`Quantity Name`}
+            onChange={(e) => setQuantity(e.target.value)}
+          />
+
+          <Input
+            label="Price"
+            value={price}
+            placeholder={`Price`}
+            onChange={(e) => setPrice(e.target.value)}
+          />
+
+
+          <Input
+            label="Description"
+            value={description}
+            placeholder={`Description`}
+            onChange={(e) => setDescription(e.target.value)}
+          />
+          <select
+            className='form-control'
+            value={categoryId}
+            onChange={(e) => setCategoryId(e.target.value)}>
+            <option>select category</option>
+            {
+              createCategoryList(category.categories).map(option =>
+                <option key={option.value} value={option.value}>{option.name}</option>)
+            }
+          </select>
+{
+productPictures.length>0?
+productPictures.map((pic,index)=><div key={index}>{pic.name}</div>):null
+}
+        <input type="file" name="productPicture" onChange={handleProductPictures}/>
+
+
+        =====================
+        product Modal
+        ---------------------
+            <Modal show={show} onHide={handleClose} animation={false}>
+
+        <Modal.Header closeButton>
+          <Modal.Title>Add New Product</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+        
+        </Modal.Body>
+        <Modal.Footer>
+
+          <Button variant="primary" onClick={handleClose}>
+            Save Changes
+          </Button>
+        </Modal.Footer>
+      </Modal>
+
+      ----------------------
+
+        <Table responsive="sm">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Table heading</th>
+        <th>Table heading</th>
+        <th>Table heading</th>
+        <th>Table heading</th>
+        <th>Table heading</th>
+        <th>Table heading</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>1</td>
+        <td>Table cell</td>
+        <td>Table cell</td>
+        <td>Table cell</td>
+        <td>Table cell</td>
+        <td>Table cell</td>
+        <td>Table cell</td>
+      </tr>
+      <tr>
+        <td>2</td>
+        <td>Table cell</td>
+        <td>Table cell</td>
+        <td>Table cell</td>
+        <td>Table cell</td>
+        <td>Table cell</td>
+        <td>Table cell</td>
+      </tr>
+      <tr>
+        <td>3</td>
+        <td>Table cell</td>
+        <td>Table cell</td>
+        <td>Table cell</td>
+        <td>Table cell</td>
+        <td>Table cell</td>
+        <td>Table cell</td>
+      </tr>
+    </tbody>
+  </Table>
+
+  -----------
+   {renderProducts()}
+   =========================
+   category.index
+
+   part 
+   -------
+
+        <Row>
+          <Col>
+            <Input
+              value={categoryName}
+              placeholder={`Category Name`}
+              onChange={(e) => setCategoryName(e.target.value)}
+            />
+          </Col>
+          <Col>
+            <select
+              className='form-control'
+              value={parentCategoryId}
+              onChange={(e) => setParentCategoryId(e.target.value)}>
+              <option>select category</option>
+              {
+                createCategoryList(category.categories).map(option =>
+                  <option key={option.value} value={option.value}>{option.name}</option>)
+              }
+            </select>
+          </Col>
+          <Col>
+            <select
+              className='form-control'
+            >
+              <option value="">Select Type</option>
+              <option value="store">Store</option>
+              <option value="product">Product</option>
+              <option value="page">Page</option>
+            </select>
+          </Col>
+        </Row>
+================================
+        -----------------
+        AddCategoryModal
+        ---------
+        {/* ------------------------// Add Category modal//------------------------- */ }
+  const renderAddCategoryModal = () => {
+    return (
+
+      <Modal
+        show={show}
+        handleClose={handleClose}
+        modalTitle={'Add New Category'}
+      >
+        <Input
+          value={categoryName}
+          placeholder={`Category Name`}
+          onChange={(e) => setCategoryName(e.target.value)}
+        />
+
+        <select
+          className='form-control'
+          value={parentCategoryId}
+          onChange={(e) => setParentCategoryId(e.target.value)}>
+          <option>select category</option>
+          {
+            createCategoryList(category.categories).map(option =>
+              <option key={option.value} value={option.value}>{option.name}</option>)
+          }
+        </select>
+
+        <input type="file" name="categoryImage" onChange={handleCategoryImage} />
+
+      </Modal>
+    )
+  }
